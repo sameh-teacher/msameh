@@ -1,0 +1,280 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>الامتحان التفاعلي – الوحدة الأولى: السكان والأنشطة الاقتصادية في الوطن العربي — الأستاذ/ سامح محمد حسن على (نسخة بعشوائية إجابات)</title>
+<style>
+  :root{ --bg:#0f172a;--card:#ffffff;--accent:#2563eb;--accent2:#06b6d4;--muted:#64748b;--danger:#ef4444;--ok:#16a34a; }
+  body{margin:0;background:linear-gradient(135deg,var(--bg),#111827);color:#111;font-family:Tahoma, Arial, sans-serif;}
+  header{padding:22px 16px;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#fff;}
+  header h1{margin:0;font-size:22px;}
+  header .sub{opacity:.95;font-size:14px;margin-top:6px}
+  .container{max-width:1000px;margin:20px auto;padding:0 14px}
+  .card{background:var(--card);border-radius:14px;box-shadow:0 12px 30px rgba(0,0,0,.12);padding:18px;margin:14px 0}
+  .meta{display:flex;gap:14px;flex-wrap:wrap;color:#0f172a;font-weight:600}
+  .timer{color:var(--danger)}
+  .q-title{font-weight:700;margin-bottom:8px}
+  .options label{display:block;padding:10px 12px;margin:8px 0;border:1px solid #e5e7eb;border-radius:10px;cursor:pointer}
+  input[type="text"]{width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:10px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+  .actions button{background:var(--accent);color:#fff;border:none;border-radius:10px;padding:12px 16px;font-size:16px;cursor:pointer}
+  .actions button.secondary{background:#334155}
+  .badge{display:inline-block;background:#f1f5f9;color:#0f172a;padding:3px 8px;border-radius:20px;font-size:12px;margin-inline-start:6px}
+  .result{font-size:18px;font-weight:700;color:#0f172a}
+  .muted{color:#64748b;font-size:13px}
+  .progress{height:8px;background:#e5e7eb;border-radius:6px;overflow:hidden;margin-top:8px}
+  .progress-inner{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .4s ease}
+  footer{color:#cbd5e1;text-align:center;padding:20px 0}
+  small.hint{display:none;color:#64748b;margin-top:6px}
+</style>
+</head>
+<body>
+<header>
+  <h1>الامتحان التفاعلي – الوحدة الأولى: السكان والأنشطة الاقتصادية في الوطن العربي</h1>
+  <div class="sub">زمن الامتحان: <strong>15 دقيقة</strong> — الدرجة النهائية: <strong>60</strong> — إعداد: <strong>الأستاذ/ سامح محمد حسن على</strong> — <em>يتم خلط ترتيب الخيارات تلقائيًا في كل تحميل</em></div>
+</header>
+<div class="container">
+  <div class="card">
+    <div class="grid2">
+      <div>
+        <label>اسم الطالب</label>
+        <input type="text" id="student" placeholder="اكتب اسمك الثلاثي" />
+      </div>
+      <div>
+        <label>الفصل / الشعبة</label>
+        <input type="text" id="class" placeholder="مثال: 6/1" />
+      </div>
+    </div>
+    <div class="meta" style="margin-top:10px">
+      <div>الوقت المتبقي: <span id="time" class="timer">15:00</span></div>
+      <div>أُجيبَ: <span id="answered">0</span> / <span id="total">22</span> سؤالًا <span class="badge" id="progressBadge">0%</span></div>
+    </div>
+    <div class="progress"><div class="progress-inner" id="bar"></div></div>
+    <small class="muted">تعليمات: أجب عن جميع الأسئلة ثم اضغط «إنهاء الاختبار». يتم خلط ترتيب **خيارات الإجابة** عشوائيًا عند كل تشغيل.</small>
+  </div>
+
+  <form id="quiz">
+    <div class="card">
+      <div class="q-title">أولًا: اختيار من متعدد <span class="badge">(12 سؤال × 3 = 36)</span></div>
+      <div id="mcq"></div>
+    </div>
+
+    <div class="card">
+      <div class="q-title">ثانيًا: صح أم خطأ <span class="badge">(6 × 2 = 12)</span></div>
+      <div id="tf"></div>
+    </div>
+
+    <div class="card">
+      <div class="q-title">ثالثًا: أسئلة إكمال قصيرة <span class="badge">(4 × 3 = 12)</span></div>
+      <div id="fill"></div>
+    </div>
+
+    <div class="card actions" style="display:flex;gap:10px;flex-wrap:wrap">
+      <button type="button" id="submitBtn">إنهاء الاختبار</button>
+      <button type="button" id="resetBtn" class="secondary">إعادة تعيين</button>
+      <button type="button" id="downloadBtn" class="secondary">تنزيل النتيجة (CSV)</button>
+      <button type="button" id="printBtn" class="secondary">طباعة</button>
+    </div>
+  </form>
+
+  <div id="out" class="card" style="display:none">
+    <div class="result">نتيجة الطالب: <span id="studentNameOut"></span></div>
+    <div class="result">درجتك: <span id="score"></span> / 60</div>
+    <div class="muted" id="band"></div>
+    <div style="margin-top:10px" id="review"></div>
+  </div>
+</div>
+
+<footer>
+  © الأستاذ/ سامح محمد حسن على — واجهة عربية (RTL) — هذا الإصدار يخلط ترتيب البدائل تلقائيًا.
+</footer>
+
+<script>
+  // ===== Utilities =====
+  const $ = (sel, el=document)=> el.querySelector(sel);
+  const $$ = (sel, el=document)=> Array.from(el.querySelectorAll(sel));
+  function shuffle(arr){ for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]] } return arr }
+  function norm(s){ return (s||'').toString().trim().toLowerCase().replace(/[ً-ْ]/g,'').replace(/[أإآ]/g,'ا').replace(/ة/g,'ه').replace(/\s+/g,''); }
+
+  // ===== Timer =====
+  let total = 15*60; // seconds
+  const timeEl = document.getElementById('time');
+  function tick(){ const m=String(Math.floor(total/60)).padStart(2,'0'); const s=String(total%60).padStart(2,'0'); timeEl.textContent=`${m}:${s}`; if(total<=0){ submit(); clearInterval(timer); $('#submitBtn').disabled=true; } total--; }
+  let timer = setInterval(tick,1000); tick();
+
+  // ===== Build Questions (with randomized options) =====
+  const MCQ = [
+    {q:'1) تضاعف عدد سكان الوطن العربي من 1900م حتى 2024م حوالي:', pts:3, opts:[{t:'خمس مرات',ok:false},{t:'سبع مرات',ok:false},{t:'تسع مرات',ok:true}]},
+    {q:'2) من أسباب النمو السكاني السريع في الوطن العربي:', pts:3, opts:[{t:'انخفاض معدل الوفيات وتحسن الخدمات الصحية',ok:true},{t:'انخفاض المواليد',ok:false},{t:'نقص فرص العمل',ok:false}]},
+    {q:'3) أكثر المناطق ازدحامًا بالسكان:', pts:3, opts:[{t:'السهول الفيضية (وادي النيل ودجلة والفرات)',ok:true},{t:'الصحاري الرملية',ok:false},{t:'المرتفعات الوعرة',ok:false}]},
+    {q:'4) من المناطق التي يقل بها عدد السكان:', pts:3, opts:[{t:'المناطق الصحراوية والجبلية',ok:true},{t:'السهول الساحلية',ok:false},{t:'الأودية الفيضية',ok:false}]},
+    {q:'5) سبب ارتفاع نسبة الذكور في منطقة الخليج العربي:', pts:3, opts:[{t:'العمالة الوافدة من الخارج',ok:true},{t:'ارتفاع الشيخوخة',ok:false},{t:'قلة الولادات',ok:false}]},
+    {q:'6) ترتفع نسب التعليم في دول عربية مثل:', pts:3, opts:[{t:'الأردن ومصر والإمارات',ok:true},{t:'الصومال واليمن',ok:false},{t:'جيبوتي وموريتانيا',ok:false}]},
+    {q:'7) من المقومات الطبيعية للصناعة:', pts:3, opts:[{t:'المواد الخام ومصادر الطاقة',ok:true},{t:'الإعلانات والتسويق',ok:false},{t:'الأنشطة الترفيهية',ok:false}]},
+    {q:'8) الصناعة الاستخراجية تعني:', pts:3, opts:[{t:'استخراج النفط والغاز والمعادن',ok:true},{t:'تحويل القطن إلى نسيج',ok:false},{t:'صناعة الملابس الجاهزة',ok:false}]},
+    {q:'9) من أمثلة الصناعات التحويلية:', pts:3, opts:[{t:'صناعات الغزل والنسيج',ok:true},{t:'استخراج الفوسفات',ok:false},{t:'التنقيب عن الغاز',ok:false}]},
+    {q:'10) من مناطق تركز الصناعات في الوطن العربي:', pts:3, opts:[{t:'الخليج العربي وشمال إفريقيا وبلاد الشام',ok:true},{t:'الصحاري القاحلة',ok:false},{t:'قمم الجبال العالية',ok:false}]},
+    {q:'11) تُعد قناة السويس:', pts:3, opts:[{t:'من أهم طرق الملاحة العالمية',ok:true},{t:'طريقًا بريًا سريعًا',ok:false},{t:'منفذًا جويًا',ok:false}]},
+    {q:'12) من أهم الواردات العربية:', pts:3, opts:[{t:'الآلات والسيارات والمنتجات الطبية',ok:true},{t:'البترول والغاز الطبيعي',ok:false},{t:'الفوسفات والقطن',ok:false}]},
+  ];
+
+  const TF = [
+    {q:'1) السهول الساحلية من أكثر مناطق الوطن العربي تركزًا للسكان.', ok:true, pts:2},
+    {q:'2) زيادة الخدمات الصحية تؤدي إلى انخفاض الوفيات وارتفاع متوسط العمر.', ok:true, pts:2},
+    {q:'3) الصناعات الحديثة مثل الإلكترونيات لا ترتبط بالتكنولوجيا.', ok:false, pts:2},
+    {q:'4) إقامة المناطق الصناعية قرب المواني يساعد على تقليل تكلفة الإنتاج.', ok:true, pts:2},
+    {q:'5) التجارة البينية العربية مزدهرة جدًا ولا تواجه عوائق.', ok:false, pts:2},
+    {q:'6) التكامل الاقتصادي يزيد القدرة التنافسية للمنتجات العربية.', ok:true, pts:2},
+  ];
+
+  const FILL = [
+    {q:'1) أكمل أنواع النقل في الوطن العربي (3 أنواع):', hint:'', names:['s1a','s1b','s1c'], pts:3},
+    {q:'2) اذكر ثلاثًا من الصناعات الرئيسية في الوطن العربي:', hint:'', names:['s2a','s2b','s2c'], pts:3},
+    {q:'3) اذكر ميزتين للتجارة الإلكترونية:', hint:'', names:['s3a','s3b'], pts:3},
+    {q:'4) اذكر جهتين/مبادرتين عربيتين تدعمان التكامل الاقتصادي:', hint:'', names:['s4a','s4b'], pts:3},
+  ];
+
+  // Render MCQ with shuffled options
+  const mcqHost = document.getElementById('mcq');
+  MCQ.forEach((item, idx)=>{
+    const box = document.createElement('div'); box.className='options'; box.dataset.points=item.pts;
+    const q = document.createElement('div'); q.className='q'; q.textContent = item.q; box.appendChild(q);
+    // clone & shuffle options
+    const ops = shuffle(item.opts.slice());
+    ops.forEach((op, j)=>{
+      const id = `q${idx+1}_${j}`;
+      const lab = document.createElement('label');
+      const input = document.createElement('input'); input.type='radio'; input.name=`q${idx+1}`; input.value= op.ok ? '1':'0'; input.id=id;
+      lab.appendChild(input); lab.appendChild(document.createTextNode(' '+op.t));
+      box.appendChild(lab);
+    });
+    mcqHost.appendChild(box);
+  });
+
+  // Render T/F with randomized order of true/false
+  const tfHost = document.getElementById('tf');
+  TF.forEach((item, idx)=>{
+    const box = document.createElement('div'); box.className='options'; box.dataset.points=item.pts;
+    const q = document.createElement('div'); q.className='q'; q.textContent = item.q; box.appendChild(q);
+    const pair = shuffle([{t:'صح', val: item.ok? '1':'0'},{t:'خطأ', val: item.ok? '0':'1'}]);
+    pair.forEach((op, j)=>{
+      const id = `t${idx+1}_${j}`;
+      const lab = document.createElement('label');
+      const input = document.createElement('input'); input.type='radio'; input.name=`t${idx+1}`; input.value= op.val; input.id=id;
+      lab.appendChild(input); lab.appendChild(document.createTextNode(' '+op.t));
+      box.appendChild(lab);
+    });
+    tfHost.appendChild(box);
+  });
+
+  // Render Fill
+  const fillHost = document.getElementById('fill');
+  FILL.forEach((it)=>{
+    const wrap = document.createElement('div');
+    const q = document.createElement('div'); q.className='q'; q.textContent = it.q; wrap.appendChild(q);
+    const grid = document.createElement('div'); grid.className = it.names.length===3?'grid3':'grid2';
+    it.names.forEach(n=>{
+      const inp = document.createElement('input'); inp.type='text'; inp.name=n; grid.appendChild(inp);
+    });
+    wrap.appendChild(grid);
+    if(it.hint){ const s = document.createElement('small'); s.className='hint'; s.textContent = it.hint; wrap.appendChild(s); }
+    wrap.dataset.points = it.pts;
+    fillHost.appendChild(wrap);
+  });
+
+  // ===== Progress =====
+  const answeredEl = document.getElementById('answered');
+  const totalEl = document.getElementById('total');
+  const bar = document.getElementById('bar');
+  function uniqueAnsweredCount(){
+    const names = new Set();
+    document.querySelectorAll('input[type=radio]').forEach(r=>{ if(r.checked) names.add(r.name) });
+    document.querySelectorAll('input[type=text]').forEach(t=>{ if(t.value.trim()) names.add(t.name) });
+    return names.size;
+  }
+  function updateProgress(){
+    const answered = uniqueAnsweredCount();
+    answeredEl.textContent = answered.toString();
+    totalEl.textContent = (12+6+4).toString();
+    const pct = Math.min(100, Math.round(answered/(12+6+3+3+2+2)*100));
+    bar.style.width = pct+'%';
+    document.getElementById('progressBadge').textContent = pct+'%';
+  }
+  document.getElementById('quiz').addEventListener('input', updateProgress); updateProgress();
+
+  // ===== Submit & Score =====
+  const out = document.getElementById('out');
+  const scoreEl = document.getElementById('score');
+  const bandEl = document.getElementById('band');
+  const review = document.getElementById('review');
+  const studentIn = document.getElementById('student');
+  const studentNameOut = document.getElementById('studentNameOut');
+
+  function submit(){
+    let score = 0; let reviewItems = [];
+    // MCQ
+    $$('#mcq .options').forEach((box, i)=>{
+      const pts = parseFloat(box.dataset.points||'3');
+      const sel = $('input[type=radio]:checked', box);
+      const ok = sel && sel.value==='1';
+      if(ok) score += pts;
+      reviewItems.push(`سؤال اختيار ${i+1}: ${ok?'✔ صحيح (+'+pts+')':'✘ خطأ (0)'}`);
+    });
+    // TF
+    $$('#tf .options').forEach((box, i)=>{
+      const pts = parseFloat(box.dataset.points||'2');
+      const sel = $('input[type=radio]:checked', box);
+      const ok = sel && sel.value==='1';
+      if(ok) score += pts;
+      reviewItems.push(`صح/خطأ ${i+1}: ${ok?'✔ صحيح (+'+pts+')':'✘ خطأ (0)'}`);
+    });
+    // FILL scoring (مثل النسخة السابقة)
+    // S1
+    const need1=['بري','بحري','جوي'].map(norm); let got=new Set();
+    ['s1a','s1b','s1c'].forEach(n=>{ const v=norm($(`input[name=${n}]`).value); need1.forEach(k=>{ if(v.includes(k)) got.add(k); }); });
+    let s1Score = Math.min(3, got.size); score += s1Score; reviewItems.push(`إكمال 1 (أنواع النقل): +${s1Score}/3`);
+    // S2
+    let tags=new Set(); ['s2a','s2b','s2c'].forEach(n=>{ const v=norm($(`input[name=${n}]`).value); if(!v) return; if(v.includes('تكرير')||v.includes('نفط')||v.includes('بترول')||v.includes('غاز')) tags.add('pet'); if(v.includes('غزل')||v.includes('نسيج')) tags.add('tex'); if(v.includes('غذائ')) tags.add('food'); if(v.includes('حديد')||v.includes('صلب')||v.includes('اسمنت')||v.includes('أسمنت')) tags.add('steel'); });
+    let s2Score=Math.min(3,tags.size); score+=s2Score; reviewItems.push(`إكمال 2 (الصناعات): +${s2Score}/3`);
+    // S3
+    const feats=['توفيرالوقت','توفيرالجهد','تقليلالتكاليف','مرونةالدفع','ربطالمنتجبالمستهلك'];
+    const s3a=norm($('input[name=s3a]').value), s3b=norm($('input[name=s3b]').value);
+    let found=0; [s3a,s3b].forEach(v=>{ if(feats.some(k=> v.includes(k))) found++; });
+    let s3Score= found>=2?3:(found==1?1:0); score+=s3Score; reviewItems.push(`إكمال 3 (التجارة الإلكترونية): +${s3Score}/3`);
+    // S4
+    const s4a=norm($('input[name=s4a]').value), s4b=norm($('input[name=s4b]').value);
+    const keys=['جامعهالدولالعربيه','مجلسالوحدةالاقتصاديةالعربية','مجلسالوحدهالاقتصاديهالعربيه','منطقةالتجارةالحرةالعربيةالكبرى','اتفاقيةمنطقةالتجارةالحرةالعربيةالكبرى'];
+    let okSet=new Set(); if(keys.some(k=> s4a.includes(k))) okSet.add('a'); if(keys.some(k=> s4b.includes(k))) okSet.add('b');
+    let s4Score = okSet.size==2?3:(okSet.size==1?1:0); score+=s4Score; reviewItems.push(`إكمال 4 (جهود التكامل): +${s4Score}/3`);
+
+    // Freeze UI
+    $$('#quiz input').forEach(el=> el.disabled=true);
+    $('#submitBtn').disabled=true; clearInterval(timer);
+
+    // Output
+    studentNameOut.textContent = (studentIn.value || 'طالب بدون اسم');
+    $('#out').style.display='block';
+    scoreEl.textContent = score.toString();
+    let band=''; if(score>=54) band='ممتاز'; else if(score>=48) band='جيد جدًا'; else if(score>=36) band='جيد'; else if(score>=30) band='مقبول'; else band='ضعيف';
+    bandEl.textContent = `التقدير: ${band}`;
+    review.innerHTML = '<ol style="line-height:1.9">'+reviewItems.map(x=>`<li>${x}</li>`).join('')+'</ol>';
+  }
+
+  document.getElementById('submitBtn').addEventListener('click', submit);
+  document.getElementById('resetBtn').addEventListener('click', ()=> window.location.reload());
+  document.getElementById('printBtn').addEventListener('click', ()=> window.print());
+  document.getElementById('downloadBtn').addEventListener('click', ()=>{
+    const name = (document.getElementById('student').value||'بدون_اسم').replace(/\s+/g,'_');
+    const rows = [["الطالب","الفصل","الدرجة","من"],[document.getElementById('student').value, document.getElementById('class').value, document.getElementById('score').textContent||'0','60']];
+    const csv = rows.map(r=> r.map(v=> '"'+(v||'')+'"').join(',')).join('
+');
+    const blob = new Blob([csv],{type:'text/csv;charset=utf-8;'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href = url; a.download = `نتيجة_${name}.csv`; a.click(); URL.revokeObjectURL(url);
+  });
+</script>
+</body>
+</html>
