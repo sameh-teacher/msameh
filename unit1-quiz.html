@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 1 Quiz</title>
+</head>
+<body>
+    <h1>Unit 1 Interactive Quiz</h1>
+    <form id="quizForm">
+        <label for="q1">1. What is the capital of France?</label><br>
+        <input type="radio" id="q1a" name="q1" value="A">
+        <label for="q1a">A. Berlin</label><br>
+        <input type="radio" id="q1b" name="q1" value="B">
+        <label for="q1b">B. Paris</label><br>
+        <input type="radio" id="q1c" name="q1" value="C">
+        <label for="q1c">C. Rome</label><br>
+        <br>
+        <label for="q2">2. What is 2 + 2?</label><br>
+        <input type="radio" id="q2a" name="q2" value="A">
+        <label for="q2a">A. 3</label><br>
+        <input type="radio" id="q2b" name="q2" value="B">
+        <label for="q2b">B. 4</label><br>
+        <input type="radio" id="q2c" name="q2" value="C">
+        <label for="q2c">C. 5</label><br>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+    <script>
+        document.getElementById('quizForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            alert('Quiz submitted!');
+        });
+    </script>
+</body>
+</html>
