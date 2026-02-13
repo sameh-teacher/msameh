@@ -1,0 +1,407 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>الامتحان التفاعلي – الوحدة الأولى: السكان والأنشطة الاقتصادية في الوطن العربي — الأستاذ/ سامح محمد حسن على</title>
+<style>
+  :root{
+    --bg:#0f172a;--card:#ffffff;--accent:#2563eb;--accent2:#06b6d4;--muted:#64748b;--danger:#ef4444;--ok:#16a34a;
+  }
+  body{margin:0;background:linear-gradient(135deg,var(--bg),#111827);color:#111;font-family:Tahoma, Arial, sans-serif;}
+  header{padding:22px 16px;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#fff;}
+  header h1{margin:0;font-size:22px;}
+  header .sub{opacity:.95;font-size:14px;margin-top:6px}
+  .container{max-width:1000px;margin:20px auto;padding:0 14px}
+  .card{background:var(--card);border-radius:14px;box-shadow:0 12px 30px rgba(0,0,0,.12);padding:18px;margin:14px 0}
+  .meta{display:flex;gap:14px;flex-wrap:wrap;color:#0f172a;font-weight:600}
+  .timer{color:var(--danger)}
+  .q-title{font-weight:700;margin-bottom:8px}
+  .options label{display:block;padding:10px 12px;margin:8px 0;border:1px solid #e5e7eb;border-radius:10px;cursor:pointer}
+  input[type="text"]{width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:10px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+  .actions button{background:var(--accent);color:#fff;border:none;border-radius:10px;padding:12px 16px;font-size:16px;cursor:pointer}
+  .actions button.secondary{background:#334155}
+  .badge{display:inline-block;background:#f1f5f9;color:#0f172a;padding:3px 8px;border-radius:20px;font-size:12px;margin-inline-start:6px}
+  .result{font-size:18px;font-weight:700;color:#0f172a}
+  .muted{color:var(--muted);font-size:13px}
+  .progress{height:8px;background:#e5e7eb;border-radius:6px;overflow:hidden;margin-top:8px}
+  .progress-inner{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .4s ease}
+  footer{color:#cbd5e1;text-align:center;padding:20px 0}
+  small.hint{display:block;color:#64748b;margin-top:6px}
+</style>
+</head>
+<body>
+<header>
+  <h1>الامتحان التفاعلي – الوحدة الأولى: السكان والأنشطة الاقتصادية في الوطن العربي</h1>
+  <div class="sub">زمن الامتحان: <strong>15 دقيقة</strong> — الدرجة النهائية: <strong>60</strong> — إعداد: <strong>الأستاذ/ سامح محمد حسن على</strong></div>
+</header>
+<div class="container">
+  <div class="card">
+    <div class="grid2">
+      <div>
+        <label>اسم الطالب</label>
+        <input type="text" id="student" placeholder="اكتب اسمك الثلاثي" />
+      </div>
+      <div>
+        <label>الفصل / الشعبة</label>
+        <input type="text" id="class" placeholder="مثال: 6/1" />
+      </div>
+    </div>
+    <div class="meta" style="margin-top:10px">
+      <div>الوقت المتبقي: <span id="time" class="timer">15:00</span></div>
+      <div>أُجيبَ: <span id="answered">0</span> / <span id="total">22</span> سؤالًا <span class="badge" id="progressBadge">0%</span></div>
+    </div>
+    <div class="progress"><div class="progress-inner" id="bar"></div></div>
+    <small class="muted">تعليمات: أجب عن جميع الأسئلة ثم اضغط «إنهاء الاختبار». بعض الأسئلة فيها أكثر من خانة.</small>
+  </div>
+
+  <form id="quiz">
+    <!-- Section A: MCQ (12 × 3 = 36) -->
+    <div class="card">
+      <div class="q-title">أولًا: اختيار من متعدد <span class="badge">(12 سؤال × 3 = 36)</span></div>
+
+      <div class="options" data-points="3">
+        <div class="q">1) تضاعف عدد سكان الوطن العربي من 1900م حتى 2024م حوالي:</div>
+        <label><input type="radio" name="q1" value="0"> خمس مرات</label>
+        <label><input type="radio" name="q1" value="0"> سبع مرات</label>
+        <label><input type="radio" name="q1" value="1"> تسع مرات</label>
+      </div>
+
+      <div class="options" data-points="3">
+        <div class="q">2) من أسباب النمو السكاني السريع في الوطن العربي:</div>
+        <label><input type="radio" name="q2" value="1"> انخفاض معدل الوفيات وتحسن الخدمات الصحية</label>
+        <label><input type="radio" name="q2" value="0"> انخفاض المواليد</label>
+        <label><input type="radio" name="q2" value="0"> نقص فرص العمل</label>
+      </div>
+
+      <div class="options" data-points="3">
+        <div class="q">3) أكثر المناطق ازدحامًا بالسكان:</div>
+        <label><input type="radio" name="q3" value="1"> السهول الفيضية (وادي النيل ودجلة والفرات)</label>
+        <label><input type="radio" name="q3" value="0"> الصحاري الرملية</label>
+        <label><input type="radio" name="q3" value="0"> المرتفعات الوعرة</label>
+      </div>
+
+      <div class="options" data-points="3">
+        <div class="q">4) من المناطق التي يقل بها عدد السكان:</div>
+        <label><input type="radio" name="q4" value="1"> المناطق الصحراوية والجبلية</label>
+        <label><input type="radio" name="q4" value="0"> السهول الساحلية</label>
+        <label><input type="radio" name="q4" value="0"> الأودية الفيضية</label>
+      </div>
+
+      <div class="options" data-points="3">
+        <div class="q">5) سبب ارتفاع نسبة الذكور في منطقة الخليج العربي:</div>
+        <label><input type="radio" name="q5" value="1"> العمالة الوافدة من الخارج</label>
+        <label><input type="radio" name="q5" value="0"> ارتفاع الشيخوخة</label>
+               <label><input type="radio" name="q5" value="0"> قلة الولادات</label>
+      </div>
+
+      <div class="options" data-points="3">
+        <div class="q">6) ترتفع نسب التعليم في دول عربية مثل:</div>
+        <label><input type="radio" name="q6" value="1"> الأردن ومصر والإمارات</label>
+        <label><input type="radio" name="q6" value="0"> الصومال واليمن</label>
+        <label><input type="radio" name="q6" value="0"> جيبوتي وموريتانيا</label>
+      </div>
+
+      <div class="options" data-points="3">
+        <div class="q">7) من المقومات الطبيعية للصناعة:</div>
+        <label><input type="radio" name="q7" value="1"> المواد الخام ومصادر الطاقة</label>
+        <label><input type="radio" name="q7" value="0"> الإعلانات والتسويق</label>
+        <label><input type="radio" name="q7" value="0"> الأنشطة الترفيهية</label>
+      </div>
+
+      <div class="options" data-points="3">
+        <div class="q">8) الصناعة الاستخراجية تعني:</div>
+        <label><input type="radio" name="q8" value="1"> استخراج النفط والغاز والمعادن</label>
+        <label><input type="radio" name="q8" value="0"> تحويل القطن إلى نسيج</label>
+        <label><input type="radio" name="q8" value="0"> صناعة الملابس الجاهزة</label>
+      </div>
+
+      <div class="options" data-points="3">
+        <div class="q">9) من أمثلة الصناعات التحويلية:</div>
+        <label><input type="radio" name="q9" value="1"> صناعات الغزل والنسيج</label>
+        <label><input type="radio" name="q9" value="0"> استخراج الفوسفات</label>
+        <label><input type="radio" name="q9" value="0"> التنقيب عن الغاز</label>
+      </div>
+
+      <div class="options" data-points="3">
+        <div class="q">10) من مناطق تركز الصناعات في الوطن العربي:</div>
+        <label><input type="radio" name="q10" value="1"> الخليج العربي وشمال إفريقيا وبلاد الشام</label>
+        <label><input type="radio" name="q10" value="0"> الصحاري القاحلة</label>
+        <label><input type="radio" name="q10" value="0"> قمم الجبال العالية</label>
+      </div>
+
+      <div class="options" data-points="3">
+        <div class="q">11) تُعد قناة السويس:</div>
+        <label><input type="radio" name="q11" value="1"> من أهم طرق الملاحة العالمية</label>
+        <label><input type="radio" name="q11" value="0"> طريقًا بريًا سريعًا</label>
+        <label><input type="radio" name="q11" value="0"> منفذًا جويًا</label>
+      </div>
+
+      <div class="options" data-points="3">
+        <div class="q">12) من أهم الواردات العربية:</div>
+        <label><input type="radio" name="q12" value="1"> الآلات والسيارات والمنتجات الطبية</label>
+        <label><input type="radio" name="q12" value="0"> البترول والغاز الطبيعي</label>
+        <label><input type="radio" name="q12" value="0"> الفوسفات والقطن</label>
+      </div>
+    </div>
+
+    <!-- Section B: True/False (6 × 2 = 12) -->
+    <div class="card">
+      <div class="q-title">ثانيًا: صح أم خطأ <span class="badge">(6 × 2 = 12)</span></div>
+
+      <div class="options" data-points="2">
+        <div class="q">1) السهول الساحلية من أكثر مناطق الوطن العربي تركزًا للسكان.</div>
+        <label><input type="radio" name="t1" value="1"> صح</label>
+        <label><input type="radio" name="t1" value="0"> خطأ</label>
+      </div>
+
+      <div class="options" data-points="2">
+        <div class="q">2) زيادة الخدمات الصحية تؤدي إلى انخفاض الوفيات وارتفاع متوسط العمر.</div>
+        <label><input type="radio" name="t2" value="1"> صح</label>
+        <label><input type="radio" name="t2" value="0"> خطأ</label>
+      </div>
+
+      <div class="options" data-points="2">
+        <div class="q">3) الصناعات الحديثة مثل الإلكترونيات لا ترتبط بالتكنولوجيا.</div>
+        <label><input type="radio" name="t3" value="0"> صح</label>
+        <label><input type="radio" name="t3" value="1"> خطأ</label>
+      </div>
+
+      <div class="options" data-points="2">
+        <div class="q">4) إقامة المناطق الصناعية قرب المواني يساعد على تقليل تكلفة الإنتاج.</div>
+        <label><input type="radio" name="t4" value="1"> صح</label>
+        <label><input type="radio" name="t4" value="0"> خطأ</label>
+      </div>
+
+      <div class="options" data-points="2">
+        <div class="q">5) التجارة البينية العربية مزدهرة جدًا ولا تواجه عوائق.</div>
+        <label><input type="radio" name="t5" value="0"> صح</label>
+        <label><input type="radio" name="t5" value="1"> خطأ</label>
+      </div>
+
+      <div class="options" data-points="2">
+        <div class="q">6) التكامل الاقتصادي يزيد القدرة التنافسية للمنتجات العربية.</div>
+        <label><input type="radio" name="t6" value="1"> صح</label>
+        <label><input type="radio" name="t6" value="0"> خطأ</label>
+      </div>
+    </div>
+
+    <!-- Section C: Short answers (4 × 3 = 12) -->
+    <div class="card">
+      <div class="q-title">ثالثًا: أسئلة إكمال قصيرة <span class="badge">(4 × 3 = 12)</span></div>
+
+      <div data-points="3">
+        <div class="q">1) أكمل أنواع النقل في الوطن العربي (3 أنواع):</div>
+        <div class="grid3">
+          <input type="text" name="s1a" placeholder="نوع 1" />
+          <input type="text" name="s1b" placeholder="نوع 2" />
+          <input type="text" name="s1c" placeholder="نوع 3" />
+        </div>
+        <small class="hint">المطلوب: بري – بحري – جوي</small>
+      </div>
+
+      <div style="margin-top:12px" data-points="3">
+        <div class="q">2) اذكر ثلاثًا من الصناعات الرئيسية في الوطن العربي:</div>
+        <div class="grid3">
+          <input type="text" name="s2a" placeholder="صناعة 1" />
+          <input type="text" name="s2b" placeholder="صناعة 2" />
+          <input type="text" name="s2c" placeholder="صناعة 3" />
+        </div>
+        <small class="hint">أمثلة: تكرير البترول والغاز – الغزل والنسيج – الصناعات الغذائية – الحديد والصلب/الأسمنت</small>
+      </div>
+
+      <div style="margin-top:12px" data-points="3">
+        <div class="q">3) اذكر ميزتين للتجارة الإلكترونية:</div>
+        <div class="grid2">
+          <input type="text" name="s3a" placeholder="ميزة 1" />
+          <input type="text" name="s3b" placeholder="ميزة 2" />
+        </div>
+        <small class="hint">مثال: توفير الوقت – تقليل التكاليف – مرونة الدفع – ربط المنتج بالمستهلك مباشرة</small>
+      </div>
+
+      <div style="margin-top:12px" data-points="3">
+        <div class="q">4) اذكر جهتين/مبادرتين عربيتين تدعمان التكامل الاقتصادي:</div>
+        <div class="grid2">
+          <input type="text" name="s4a" placeholder="جهة/مبادرة 1" />
+          <input type="text" name="s4b" placeholder="جهة/مبادرة 2" />
+        </div>
+        <small class="hint">أمثلة: جامعة الدول العربية – مجلس الوحدة الاقتصادية العربية – منطقة التجارة الحرة العربية الكبرى</small>
+      </div>
+    </div>
+
+    <div class="card actions" style="display:flex;gap:10px;flex-wrap:wrap">
+      <button type="button" id="submitBtn">إنهاء الاختبار</button>
+      <button type="button" id="resetBtn" class="secondary">إعادة تعيين</button>
+      <button type="button" id="downloadBtn" class="secondary">تنزيل النتيجة (CSV)</button>
+      <button type="button" id="printBtn" class="secondary">طباعة</button>
+    </div>
+  </form>
+
+  <div id="out" class="card" style="display:none">
+    <div class="result">نتيجة الطالب: <span id="studentNameOut"></span></div>
+    <div class="result">درجتك: <span id="score"></span> / 60</div>
+    <div class="muted" id="band"></div>
+    <div style="margin-top:10px" id="review"></div>
+  </div>
+
+  <div class="card muted">
+    <div><strong>ملاحظات عامة:</strong> هذا الاختبار ذاتي التصحيح، بوقت مُحدد (15 دقيقة)، ويعرض تغذية راجعة بعد الإنهاء. تم إعداده وفق محتوى الكتاب المدرسي للوحدة الأولى.</div>
+  </div>
+</div>
+
+<footer>
+  © الأستاذ/ سامح محمد حسن على — اختبار إلكتروني بواجهة عربية (RTL). يُفضّل فتحه على Chrome/Edge.
+</footer>
+
+<script>
+  // Timer 15 minutes
+  let total = 15*60; // seconds
+  const timeEl = document.getElementById('time');
+  const submitBtn = document.getElementById('submitBtn');
+  const resetBtn = document.getElementById('resetBtn');
+  const downloadBtn = document.getElementById('downloadBtn');
+  const printBtn = document.getElementById('printBtn');
+  const quiz = document.getElementById('quiz');
+  const out = document.getElementById('out');
+  const scoreEl = document.getElementById('score');
+  const bandEl = document.getElementById('band');
+  const review = document.getElementById('review');
+  const studentIn = document.getElementById('student');
+  const studentNameOut = document.getElementById('studentNameOut');
+  const answeredEl = document.getElementById('answered');
+  const totalEl = document.getElementById('total');
+  const bar = document.getElementById('bar');
+
+  function tick(){
+    const m = String(Math.floor(total/60)).padStart(2,'0');
+    const s = String(total%60).padStart(2,'0');
+    timeEl.textContent = `${m}:${s}`;
+    if(total<=0){ submit(); clearInterval(timer); submitBtn.disabled = true; }
+    total--;
+  }
+  let timer = setInterval(tick,1000); tick();
+
+  function norm(s){
+    return (s||'').toString().trim().toLowerCase()
+      .replace(/[ً-ْ]/g,'') // remove diacritics
+      .replace(/[أإآ]/g,'ا').replace(/ة/g,'ه').replace(/\s+/g,'');
+  }
+
+  function uniqueAnsweredCount(){
+    const names = new Set();
+    quiz.querySelectorAll('input[type=radio]').forEach(r=>{ if(r.checked) names.add(r.name) });
+    quiz.querySelectorAll('input[type=text]').forEach(t=>{ if(t.value.trim()) names.add(t.name) });
+    return names.size;
+  }
+
+  function updateProgress(){
+    const answered = uniqueAnsweredCount();
+    answeredEl.textContent = answered.toString();
+    totalEl.textContent = (12+6+4).toString();
+    const pct = Math.min(100, Math.round(answered/(12+6+3+3+2+2)*100));
+    bar.style.width = pct+'%';
+    document.getElementById('progressBadge').textContent = pct+'%';
+  }
+
+  quiz.addEventListener('input', updateProgress);
+  updateProgress();
+
+  function submit(){
+    let score = 0; let reviewItems = [];
+
+    // MCQ keys q1..q12, each 3 points where value=='1'
+    for(let i=1;i<=12;i++){
+      const sel = quiz.querySelector(`input[name=q${i}]:checked`);
+      const ok = sel && sel.value==='1';
+      if(ok) score += 3;
+      reviewItems.push(`سؤال اختيار ${i}: ${ok?'✔ صحيح (+3)':'✘ خطأ (0)'}`);
+    }
+
+    // True/False t1..t6, each 2 points where value=='1'
+    for(let i=1;i<=6;i++){
+      const sel = quiz.querySelector(`input[name=t${i}]:checked`);
+      const ok = sel && sel.value==='1';
+      if(ok) score += 2;
+      reviewItems.push(`صح/خطأ ${i}: ${ok?'✔ صحيح (+2)':'✘ خطأ (0)'}`);
+    }
+
+    // Short answers scoring
+    // S1: transport types
+    const s1vals = ['s1a','s1b','s1c'].map(n=> norm(quiz[n].value));
+    let s1Score=0; const need1=['بري','بحري','جوي'].map(norm); let got=new Set();
+    s1vals.forEach(v=>{
+      need1.forEach(k=>{ if(v.includes(k)) got.add(k); });
+    });
+    s1Score = Math.min(3, got.size); score += s1Score;
+    reviewItems.push(`إكمال 1 (أنواع النقل): +${s1Score}/3`);
+
+    // S2: industries (petroleum refining, textiles, food, steel/cement)
+    const s2vals = ['s2a','s2b','s2c'].map(n=> norm(quiz[n].value));
+    let tags = new Set();
+    s2vals.forEach(v=>{
+      if(!v) return;
+      if(v.includes('تكرير')||v.includes('نفط')||v.includes('بترول')||v.includes('غاز')) tags.add('pet');
+      if(v.includes('غزل')||v.includes('نسيج')) tags.add('tex');
+      if(v.includes('غذائ')) tags.add('food');
+      if(v.includes('حديد')||v.includes('صلب')||v.includes('اسمنت')||v.includes('أسمنت')) tags.add('steel');
+    });
+    let s2Score = Math.min(3, tags.size); score += s2Score;
+    reviewItems.push(`إكمال 2 (الصناعات): +${s2Score}/3`);
+
+    // S3: e-commerce features
+    const s3a = norm(quiz['s3a'].value), s3b = norm(quiz['s3b'].value);
+    const feats = ['توفيرالوقت','توفيرالجهد','تقليلالتكاليف','مرونةالدفع','ربطالمنتجبالمستهلك'];
+    let found = 0;
+    [s3a,s3b].forEach(v=>{ if(feats.some(k=> v.includes(k))) found++; });
+    let s3Score = found>=2?3:(found==1?1:0); score += s3Score;
+    reviewItems.push(`إكمال 3 (التجارة الإلكترونية): +${s3Score}/3`);
+
+    // S4: integration initiatives
+    const s4a = norm(quiz['s4a'].value), s4b = norm(quiz['s4b'].value);
+    let okSet = new Set();
+    const keys = ['جامعهالدولالعربيه','مجلسالوحدةالاقتصاديةالعربية','مجلسالوحدهالاقتصاديهالعربيه','منطقةالتجارةالحرةالعربيةالكبرى','اتفاقيةمنطقةالتجارةالحرةالعربيةالكبرى'];
+    if(keys.some(k=> s4a.includes(k))) okSet.add('a');
+    if(keys.some(k=> s4b.includes(k))) okSet.add('b');
+    let s4Score = okSet.size==2?3:(okSet.size==1?1:0); score += s4Score;
+    reviewItems.push(`إكمال 4 (جهود التكامل): +${s4Score}/3`);
+
+    // Freeze UI
+    Array.from(quiz.elements).forEach(el=> el.disabled = true);
+    submitBtn.disabled = true; clearInterval(timer);
+
+    // Output
+    studentNameOut.textContent = (studentIn.value || 'طالب بدون اسم');
+    out.style.display = 'block';
+    scoreEl.textContent = score.toString();
+
+    let band = '';
+    if(score>=54) band = 'ممتاز';
+    else if(score>=48) band = 'جيد جدًا';
+    else if(score>=36) band = 'جيد';
+    else if(score>=30) band = 'مقبول';
+    else band = 'ضعيف';
+    bandEl.textContent = `التقدير: ${band}`;
+
+    review.innerHTML = '<ol style="line-height:1.9">'+reviewItems.map(x=>`<li>${x}</li>`).join('')+'</ol>';
+  }
+
+  submitBtn.addEventListener('click', submit);
+  resetBtn.addEventListener('click', ()=> window.location.reload());
+  printBtn.addEventListener('click', ()=> window.print());
+
+  downloadBtn.addEventListener('click', ()=>{
+    const name = (studentIn.value||'بدون_اسم').replace(/\s+/g,'_');
+    const rows = [["الطالب","الفصل","الدرجة","من"],[studentIn.value, document.getElementById('class').value, scoreEl.textContent||'0','60']];
+    const csv = rows.map(r=> r.map(v=> '"'+(v||'')+'"').join(',')).join('
+');
+    const blob = new Blob([csv],{type:'text/csv;charset=utf-8;'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href = url; a.download = `نتيجة_${name}.csv`; a.click();
+    URL.revokeObjectURL(url);
+  });
+</script>
+</body>
+</html>
