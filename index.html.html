@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>اختبار تفاعلي – الوحدة الأولى – 15 دقيقة – 60 درجة — الأستاذ/ سامح محمد حسن على</title>
+<style>
+body{margin:0;background:#0f172a;color:#111;font-family:Tahoma,Arial,sans-serif}
+header{background:linear-gradient(90deg,#2563eb,#06b6d4);color:#fff;padding:18px}
+.container{max-width:960px;margin:16px auto;padding:0 12px}
+.card{background:#fff;border-radius:12px;box-shadow:0 8px 20px rgba(0,0,0,.12);padding:14px;margin:12px 0}
+.q-title{font-weight:bold;margin-bottom:8px}
+label{display:block;margin:8px 0;padding:8px;border:1px solid #e5e7eb;border-radius:8px}
+input[type=text]{width:100%;padding:9px;border:1px solid #e5e7eb;border-radius:8px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.badge{display:inline-block;background:#f1f5f9;color:#0f172a;padding:2px 8px;border-radius:20px;font-size:12px;margin-inline-start:6px}
+.timer{color:#ef4444;font-weight:bold}
+.btn{background:#2563eb;color:#fff;border:none;border-radius:8px;padding:10px 14px;margin-inline-end:8px;cursor:pointer}
+.btn.secondary{background:#334155}
+.progress{height:8px;background:#e5e7eb;border-radius:6px;overflow:hidden;margin-top:6px}
+.progress>div{height:100%;width:0;background:linear-gradient(90deg,#2563eb,#06b6d4)}
+.small{color:#64748b;font-size:12px}
+</style>
+</head>
+<body>
+<header>
+  <div style="font-size:20px;font-weight:700">اختبار تفاعلي – الوحدة الأولى – 15 دقيقة – 60 درجة</div>
+  <div style="opacity:.95;font-size:13px">زمن الامتحان: <b>15 دقيقة</b> — الدرجة: <b>60</b> — إعداد: <b>الأستاذ/ سامح محمد حسن على</b></div>
+</header>
+<div class="container">
+  <div class="card">
+    <div class="grid2">
+      <div><label style="border:none;padding:0">اسم الطالب<input type="text" id="student" placeholder="اكتب اسمك"/></label></div>
+      <div><label style="border:none;padding:0">الفصل<input type="text" id="class" placeholder="مثال: 6/1"/></label></div>
+    </div>
+    <div class="small">الوقت المتبقي: <span id="time" class="timer">15:00</span> — أُجيبَ: <span id="answered">0</span>/<span id="total">22</span> <span class="badge" id="pct">0%</span></div>
+    <div class="progress"><div id="bar"></div></div>
+  </div>
+
+  <form id="quiz">
+    <div class="card">
+      <div class="q-title">أولًا: اختيار من متعدد <span class="badge">(12 × 3 = 36)</span></div>
+      <div id="mcq"></div>
+    </div>
+
+    <div class="card">
+      <div class="q-title">ثانيًا: صح/خطأ <span class="badge">(6 × 2 = 12)</span></div>
+      <div id="tf"></div>
+    </div>
+
+    <div class="card">
+      <div class="q-title">ثالثًا: أكمل <span class="badge">(4 × 3 = 12)</span></div>
+      <div id="fill"></div>
+    </div>
+
+    <div class="card">
+      <button type="button" class="btn" id="submitBtn">إنهاء الاختبار</button>
+      <button type="button" class="btn secondary" id="resetBtn">إعادة تعيين</button>
+      <button type="button" class="btn secondary" id="printBtn">طباعة</button>
+    </div>
+  </form>
+
+  <div id="out" class="card" style="display:none">
+    <div style="font-weight:700">نتيجة الطالب: <span id="studentNameOut"></span></div>
+    <div style="font-weight:700">الدرجة: <span id="score"></span> / 60 — <span id="band"></span></div>
+    <ol id="review" style="line-height:1.8"></ol>
+  </div>
+</div>
+
+<script>
+function shuffle(arr){ for(var i=arr.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=arr[i]; arr[i]=arr[j]; arr[j]=t; } return arr; }
+function $(id){ return document.getElementById(id); }
+function qsa(sel, root){ return Array.prototype.slice.call((root||document).querySelectorAll(sel)); }
+function norm(s){ return (s||'').toString().trim().toLowerCase().replace(/[ً-ْ]/g,'').replace(/[أإآ]/g,'ا').replace(/ة/g,'ه').replace(/\s+/g,''); }
+
+var total = 15*60, timerEl=$('time');
+function tick(){ var m=('0'+Math.floor(total/60)).slice(-2), s=('0'+(total%60)).slice(-2); timerEl.textContent=m+':'+s; if(total<=0){ submit(); clearInterval(tmr); $('submitBtn').disabled=true; } total--; }
+var tmr = setInterval(tick,1000); tick();
+
+var MCQ = [
+  {q:'1) تضاعف عدد سكان الوطن العربي من 1900م حتى 2024م حوالي:', pts:3, opts:[{t:'خمس مرات',ok:false},{t:'سبع مرات',ok:false},{t:'تسع مرات',ok:true}]},
+  {q:'2) من أسباب النمو السكاني السريع في الوطن العربي:', pts:3, opts:[{t:'انخفاض معدل الوفيات وتحسن الخدمات الصحية',ok:true},{t:'انخفاض المواليد',ok:false},{t:'نقص فرص العمل',ok:false}]},
+  {q:'3) أكثر المناطق ازدحامًا بالسكان:', pts:3, opts:[{t:'السهول الفيضية (وادي النيل ودجلة والفرات)',ok:true},{t:'الصحاري الرملية',ok:false},{t:'المرتفعات الوعرة',ok:false}]},
+  {q:'4) من المناطق التي يقل بها عدد السكان:', pts:3, opts:[{t:'المناطق الصحراوية والجبلية',ok:true},{t:'السهول الساحلية',ok:false},{t:'الأودية الفيضية',ok:false}]},
+  {q:'5) سبب ارتفاع نسبة الذكور في منطقة الخليج العربي:', pts:3, opts:[{t:'العمالة الوافدة من الخارج',ok:true},{t:'ارتفاع الشيخوخة',ok:false},{t:'قلة الولادات',ok:false}]},
+  {q:'6) ترتفع نسب التعليم في دول عربية مثل:', pts:3, opts:[{t:'الأردن ومصر والإمارات',ok:true},{t:'الصومال واليمن',ok:false},{t:'جيبوتي وموريتانيا',ok:false}]},
+  {q:'7) من المقومات الطبيعية للصناعة:', pts:3, opts:[{t:'المواد الخام ومصادر الطاقة',ok:true},{t:'الإعلانات والتسويق',ok:false},{t:'الأنشطة الترفيهية',ok:false}]},
+  {q:'8) الصناعة الاستخراجية تعني:', pts:3, opts:[{t:'استخراج النفط والغاز والمعادن',ok:true},{t:'تحويل القطن إلى نسيج',ok:false},{t:'صناعة الملابس الجاهزة',ok:false}]},
+  {q:'9) من أمثلة الصناعات التحويلية:', pts:3, opts:[{t:'صناعات الغزل والنسيج',ok:true},{t:'استخراج الفوسفات',ok:false},{t:'التنقيب عن الغاز',ok:false}]},
+  {q:'10) من مناطق تركز الصناعات في الوطن العربي:', pts:3, opts:[{t:'الخليج العربي وشمال إفريقيا وبلاد الشام',ok:true},{t:'الصحاري القاحلة',ok:false},{t:'قمم الجبال العالية',ok:false}]},
+  {q:'11) تُعد قناة السويس:', pts:3, opts:[{t:'من أهم طرق الملاحة العالمية',ok:true},{t:'طريقًا بريًا سريعًا',ok:false},{t:'منفذًا جويًا',ok:false}]},
+  {q:'12) من أهم الواردات العربية:', pts:3, opts:[{t:'الآلات والسيارات والمنتجات الطبية',ok:true},{t:'البترول والغاز الطبيعي',ok:false},{t:'الفوسفات والقطن',ok:false}]}
+];
+var TF = [
+  {q:'1) السهول الساحلية من أكثر مناطق الوطن العربي تركزًا للسكان.', ok:true, pts:2},
+  {q:'2) زيادة الخدمات الصحية تؤدي إلى انخفاض الوفيات وارتفاع متوسط العمر.', ok:true, pts:2},
+  {q:'3) الصناعات الحديثة مثل الإلكترونيات لا ترتبط بالتكنولوجيا.', ok:false, pts:2},
+  {q:'4) إقامة المناطق الصناعية قرب المواني يساعد على تقليل تكلفة الإنتاج.', ok:true, pts:2},
+  {q:'5) التجارة البينية العربية مزدهرة جدًا ولا تواجه عوائق.', ok:false, pts:2},
+  {q:'6) التكامل الاقتصادي يزيد القدرة التنافسية للمنتجات العربية.', ok:true, pts:2}
+];
+var FILL = [
+  {q:'1) أكمل أنواع النقل في الوطن العربي (3 أنواع):', names:['s1a','s1b','s1c'], pts:3},
+  {q:'2) اذكر ثلاثًا من الصناعات الرئيسية في الوطن العربي:', names:['s2a','s2b','s2c'], pts:3},
+  {q:'3) اذكر ميزتين للتجارة الإلكترونية:', names:['s3a','s3b'], pts:3},
+  {q:'4) اذكر جهتين/مبادرتين عربيتين تدعمان التكامل الاقتصادي:', names:['s4a','s4b'], pts:3}
+];
+
+function render(){
+  var mcq = $('mcq');
+  for(var i=0;i<MCQ.length;i++){
+    var item = MCQ[i];
+    var box = document.createElement('div'); box.className='options'; box.setAttribute('data-points', item.pts);
+    var q = document.createElement('div'); q.textContent = item.q; box.appendChild(q);
+    var ops = item.opts.slice(0); shuffle(ops);
+    for(var j=0;j<ops.length;j++){
+      var lab = document.createElement('label');
+      var input = document.createElement('input'); input.type='radio'; input.name='q'+(i+1); input.value = ops[j].ok ? '1':'0';
+      lab.appendChild(input); lab.appendChild(document.createTextNode(' '+ops[j].t)); box.appendChild(lab);
+    }
+    mcq.appendChild(box);
+  }
+  var tf = $('tf');
+  for(var k=0;k<TF.length;k++){
+    var it = TF[k];
+    var bx = document.createElement('div'); bx.className='options'; bx.setAttribute('data-points', it.pts);
+    var qq = document.createElement('div'); qq.textContent = it.q; bx.appendChild(qq);
+    var pair = [{t:'صح',v: it.ok?'1':'0'},{t:'خطأ',v: it.ok?'0':'1'}]; shuffle(pair);
+    for(var m=0;m<pair.length;m++){
+      var lab2 = document.createElement('label');
+      var inp = document.createElement('input'); inp.type='radio'; inp.name='t'+(k+1); inp.value=pair[m].v;
+      lab2.appendChild(inp); lab2.appendChild(document.createTextNode(' '+pair[m].t)); bx.appendChild(lab2);
+    }
+    tf.appendChild(bx);
+  }
+  var fill = $('fill');
+  for(var f=0; f<FILL.length; f++){
+    var itf = FILL[f];
+    var wrap = document.createElement('div');
+    var qq2 = document.createElement('div'); qq2.textContent = itf.q; wrap.appendChild(qq2);
+    var grid = document.createElement('div'); grid.className = itf.names.length===3? 'grid3':'grid2';
+    for(var z=0; z<itf.names.length; z++){ var inp2 = document.createElement('input'); inp2.type='text'; inp2.name=itf.names[z]; grid.appendChild(inp2); }
+    wrap.appendChild(grid);
+    wrap.setAttribute('data-points', itf.pts);
+    fill.appendChild(wrap);
+  }
+}
+render();
+
+function progress(){
+  var names = {};
+  qsa('input[type=radio]').forEach(function(r){ if(r.checked) names[r.name]=1; });
+  qsa('input[type=text]').forEach(function(t){ if(t.value.replace(/\s+/g,'').length) names[t.name]=1; });
+  var answered = Object.keys(names).length;
+  document.getElementById('answered').textContent = answered;
+  document.getElementById('total').textContent = (12+6+4);
+  var pct = Math.min(100, Math.round(answered/(12+6+3+3+2+2)*100));
+  document.getElementById('pct').textContent = pct+'%';
+  document.getElementById('bar').style.width = pct+'%';
+}
+document.getElementById('quiz').addEventListener('input', progress); progress();
+
+function submit(){
+  var score = 0; var review = document.getElementById('review'); review.innerHTML='';
+  qsa('#mcq .options').forEach(function(box, i){ var pts = parseFloat(box.getAttribute('data-points'))||3; var sel = box.querySelector('input[type=radio]:checked'); var ok = sel && sel.value==='1'; if(ok) score+=pts; var li=document.createElement('li'); li.textContent = 'سؤال اختيار ' + (i+1) + ': ' + (ok? '✔ صحيح (+'+pts+')':'✘ خطأ (0)'); review.appendChild(li); });
+  qsa('#tf .options').forEach(function(box, i){ var pts = parseFloat(box.getAttribute('data-points'))||2; var sel = box.querySelector('input[type=radio]:checked'); var ok = sel && sel.value==='1'; if(ok) score+=pts; var li=document.createElement('li'); li.textContent = 'صح/خطأ ' + (i+1) + ': ' + (ok? '✔ صحيح (+'+pts+')':'✘ خطأ (0)'); review.appendChild(li); });
+  var need1 = ['بري','بحري','جوي'].map(norm); var got={}; ['s1a','s1b','s1c'].forEach(function(n){ var v=norm(document.querySelector('input[name='+n+']').value); for(var i=0;i<need1.length;i++){ if(v.indexOf(need1[i])>-1) got[need1[i]]=1; } }); var s1 = Math.min(3, Object.keys(got).length); score+=s1; var li1=document.createElement('li'); li1.textContent='إكمال 1 (أنواع النقل): +'+s1+'/3'; review.appendChild(li1);
+  var tags={}; ['s2a','s2b','s2c'].forEach(function(n){ var v=norm(document.querySelector('input[name='+n+']').value); if(!v) return; if(v.indexOf('تكرير')>-1||v.indexOf('نفط')>-1||v.indexOf('بترول')>-1||v.indexOf('غاز')>-1) tags.pet=1; if(v.indexOf('غزل')>-1||v.indexOf('نسيج')>-1) tags.tex=1; if(v.indexOf('غذائ')>-1) tags.food=1; if(v.indexOf('حديد')>-1||v.indexOf('صلب')>-1||v.indexOf('اسمنت')>-1||v.indexOf('أسمنت')>-1) tags.steel=1; }); var s2=Math.min(3,Object.keys(tags).length); score+=s2; var li2=document.createElement('li'); li2.textContent='إكمال 2 (الصناعات): +'+s2+'/3'; review.appendChild(li2);
+  var feats=['توفيرالوقت','توفيرالجهد','تقليلالتكاليف','مرونةالدفع','ربطالمنتجبالمستهلك']; var a=norm(document.querySelector('input[name=s3a]').value), b=norm(document.querySelector('input[name=s3b]').value); var f=0; [a,b].forEach(function(v){ for(var i=0;i<feats.length;i++){ if(v.indexOf(feats[i])>-1){ f++; break; } } }); var s3= f>=2?3:(f==1?1:0); score+=s3; var li3=document.createElement('li'); li3.textContent='إكمال 3 (التجارة الإلكترونية): +'+s3+'/3'; review.appendChild(li3);
+  var ia=norm(document.querySelector('input[name=s4a]').value), ib=norm(document.querySelector('input[name=s4b]').value); var keys=['جامعهالدولالعربيه','مجلسالوحدةالاقتصاديةالعربية','مجلسالوحدهالاقتصاديهالعربيه','منطقةالتجارةالحرةالعربيةالكبرى','اتفاقيةمنطقةالتجارةالحرةالعربيةالكبرى']; var c=0; for(var i=0;i<keys.length;i++){ if(ia.indexOf(keys[i])>-1){ c++; break; } } for(i=0;i<keys.length;i++){ if(ib.indexOf(keys[i])>-1){ c++; break; } } var s4= c==2?3:(c==1?1:0); score+=s4; var li4=document.createElement('li'); li4.textContent='إكمال 4 (جهود التكامل): +'+s4+'/3'; review.appendChild(li4);
+  qsa('#quiz input').forEach(function(el){ el.disabled=true; });
+  clearInterval(tmr); document.getElementById('submitBtn').disabled=true;
+  document.getElementById('studentNameOut').textContent = document.getElementById('student').value || 'طالب بدون اسم';
+  document.getElementById('out').style.display='block';
+  document.getElementById('score').textContent = String(score);
+  var band = (score>=54)?'ممتاز':(score>=48)?'جيد جدًا':(score>=36)?'جيد':(score>=30)?'مقبول':'ضعيف';
+  document.getElementById('band').textContent = 'التقدير: ' + band;
+}
+
+document.getElementById('submitBtn').addEventListener('click', submit);
+document.getElementById('resetBtn').addEventListener('click', function(){ window.location.reload(); });
+document.getElementById('printBtn').addEventListener('click', function(){ window.print(); });
+</script>
+</body>
+</html>
