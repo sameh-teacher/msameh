@@ -1,145 +1,48 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>اختبار إلكتروني – بنك أسئلة – 20 سؤالًا – 30 درجة – تصميم B — الأستاذ/ سامح محمد حسن على</title>
-<style>
-:root{ --bg:#0b1324; --card:#ffffff; --accent:#10b981; --accent2:#14b8a6; --muted:#64748b; --danger:#ef4444 }
+<title>امتحان إلكتروني – الدرس الأول: مصر والدول المستقلة — تصميم B — صفحة اختيار النسخة</title>
+<style>:root{ --bg:#0b1324; --card:#ffffff; --accent:#10b981; --accent2:#14b8a6; --muted:#64748b; --danger:#ef4444 }
 *{box-sizing:border-box}
 body{margin:0;background:linear-gradient(135deg,var(--bg),#0f172a);font-family:Tahoma,Arial,sans-serif;color:#0f172a}
 header{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#fff;padding:20px}
 header h1{margin:0 0 6px 0;font-size:22px}
 header .sub{opacity:.95;font-size:14px}
-.card{background:#fff;margin:14px auto;padding:18px;border-radius:14px;max-width:950px;box-shadow:0 10px 28px rgba(0,0,0,.13)}
-.btn{background:var(--accent);color:#fff;padding:12px 16px;border:none;border-radius:10px;cursor:pointer;font-size:16px}
-.btn.secondary{background:#334155}
-input[type=text]{width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:10px;margin-top:6px}
+.container{max-width:980px;margin:18px auto;padding:0 14px}
+.card{background:#fff;margin:12px 0;padding:16px;border-radius:14px;box-shadow:0 10px 28px rgba(0,0,0,.13)}
 .options label{display:block;padding:10px;margin:6px 0;border:1px solid #e5e7eb;border-radius:10px;cursor:pointer}
+input[type=text]{width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:10px}
+.kpis{display:flex;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:13px;margin-top:6px}
 .timer{color:var(--danger);font-weight:bold}
+.actions button{background:var(--accent);color:#fff;border:none;border-radius:10px;padding:12px 16px;font-size:16px;cursor:pointer}
+.actions button.secondary{background:#334155}
 .progress{height:8px;background:#e5e7eb;border-radius:6px;overflow:hidden;margin-top:8px}
-.progress-inner{height:100%;width:0;background:linear-gradient(90deg,#10b981,#14b8a6)}
-.kpis{display:flex;gap:10px;flex-wrap:wrap;color:#64748b;font-size:13px;margin-top:6px}
+.progress-inner{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2))}
+footer{color:#cbd5e1;text-align:center;padding:16px 0;font-size:13px}
 .badge{display:inline-block;background:#f1f5f9;color:#0f172a;padding:3px 8px;border-radius:20px;font-size:12px;margin-inline-start:6px}
-footer{color:#cbd5e1;text-align:center;padding:18px 0;font-size:13px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.card h3{margin:6px 0 10px 0}
+.btn{display:inline-block;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#fff;text-decoration:none;padding:12px 16px;border-radius:10px;margin-top:6px}
 </style>
 </head>
 <body>
 <header>
-  <h1>اختبار إلكتروني – بنك أسئلة – 20 سؤالًا – 30 درجة – تصميم B</h1>
-  <div class="sub">زمن الامتحان: <b>10 دقائق</b> — الدرجة النهائية: <b>30</b> — إعداد: <b id="tname">الأستاذ/ سامح محمد حسن على</b></div>
+  <h1>امتحان إلكتروني – الدرس الأول: مصر والدول المستقلة — تصميم B</h1>
+  <div class="sub">زمن الامتحان: <b>10 دقائق</b> — الدرجة النهائية: <b>30</b> — إعداد: <b>الأستاذ/ سامح محمد حسن على</b> — نوع الأسئلة: <b>متنوع</b></div>
 </header>
-<div class="card">
-  <label>اسم الطالب:<br><input id="student" placeholder="اكتب اسمك الثلاثي"></label>
-  <label>الفصل:<br><input id="class" placeholder="مثال: 6/1"></label>
-  <div class="kpis">
-    <div>الوقت المتبقي: <span id="time" class="timer">10:00</span></div>
-    <div>أُجيبَ: <span id="answered">0</span>/<span id="total">20</span> <span class="badge" id="pct">0%</span></div>
+<div class="container">
+  <div class="card">
+    <p>اختر النسخة المناسبة لفصلك. كل نسخة تحتوي <b>20 سؤالًا</b> بترتيب ومحتوى مختلفين (A/B/C) مع خلط بدائل الإجابة.</p>
   </div>
-  <div class="progress"><div class="progress-inner" id="bar"></div></div>
+  <div class="cards">
+    <div class="card"><h3>نسخة A</h3><p class="muted">تركيز على الفتح والطولونيين والفاطميين</p><a class="btn" href="exam_A.html">ابدأ A</a></div>
+    <div class="card"><h3>نسخة B</h3><p class="muted">تركيز على الإخشيديين والفاطميين والمماليك</p><a class="btn" href="exam_B.html">ابدأ B</a></div>
+    <div class="card"><h3>نسخة C</h3><p class="muted">تركيز شامل مع تواريخ وأسماء أساسية</p><a class="btn" href="exam_C.html">ابدأ C</a></div>
+  </div>
 </div>
-<div class="card" id="quiz">
-  <h3>الأسئلة العشوائية من بنك الأسئلة (20 سؤالًا)</h3>
-  <div id="exam"></div>
-  <button class="btn" onclick="submitExam()">إنهاء الاختبار</button>
-  <button class="btn secondary" onclick="sendMail()">إرسال النتيجة للمعلم</button>
-  <button class="btn secondary" onclick="window.print()">طباعة</button>
-  <div id="result" style="margin-top:15px;font-size:18px;font-weight:bold"></div>
-</div>
-<footer>© الأستاذ/ سامح محمد حسن على — تصميم B (مودرن هادئ) — بريد المعلّم: samehteba@gmail.com</footer>
-
-<script>
-const TEACHER_NAME = "الأستاذ/ سامح محمد حسن على";
-const TEACHER_EMAIL = "samehteba@gmail.com";
-
-const BANK = [
- {q:'يتحقق التكامل الاقتصادي عندما يتم تنشيط…', opts:[['التجارة البينية',1],['الاستيراد الخارجي',0],['تقليل الإنتاج',0]]},
- {q:'من مقومات التكامل الاقتصادي:', opts:[['اللغة والتاريخ المشترك',1],['ضعف الموارد',0],['قلة السكان',0]]},
- {q:'من مجالات التكامل:', opts:[['تبادل المحاصيل الغذائية',1],['السياحة فقط',0],['الهجرة',0]]},
- {q:'من معوقات التكامل الاقتصادي:', opts:[['الصراعات والاضطرابات',1],['تنويع الإنتاج',0],['تسهيل التجارة',0]]},
- {q:'جامعة الدول العربية أُنشئت عام…', opts:[['1945',1],['1997',0],['1957',0]]},
- {q:'منطقة التجارة الحرة العربية الكبرى أُنشئت عام…', opts:[['1997',1],['1970',0],['2005',0]]},
- {q:'زيادة الخدمات الصحية تؤدي إلى…', opts:[['رفع القدرة التنافسية',1],['زيادة الوفيات',0],['انخفاض العمر',0]]},
- {q:'تشابه الإنتاج بين الدول العربية يؤدي إلى…', opts:[['معوقات التكامل',1],['تحقيق التعاون',0],['خفض البطالة',0]]},
- {q:'من فوائد التكامل:', opts:[['خفض البطالة والفقر',1],['تقليل الإنتاج',0],['زيادة الضرائب',0]]},
- {q:'من مجالات التكامل الصناعي:', opts:[['استغلال البترول والغاز',1],['تقليل العمالة',0],['إلغاء المصانع',0]]},
- {q:'من الموارد الطبيعية الداعمة للتكامل:', opts:[['المعادن',1],['قلة المياه',0],['ندرة الطاقة',0]]},
- {q:'زيادة الاستثمار العربي المشترك يؤدي إلى…', opts:[['تحسين مستوى المعيشة',1],['زيادة الفقر',0],['تراجع التنمية',0]]},
- {q:'من مقومات التكامل البشرية:', opts:[['الكوادر المؤهلة',1],['انعدام التعليم',0],['قلة المهارات',0]]},
- {q:'من العوامل المؤثرة في التكامل:', opts:[['الاستقرار السياسي',1],['النزاعات فقط',0],['العزلة الاقتصادية',0]]},
- {q:'زيادة الإنتاج المحلي يؤدي إلى…', opts:[['الاكتفاء الذاتي',1],['زيادة الواردات',0],['انخفاض الجودة',0]]},
- {q:'قلة الاعتماد على الخارج تُعد…', opts:[['ميزة اقتصادية مهمة',1],['معوقًا للتكامل',0],['عاملًا لزيادة الواردات',0]]},
- {q:'تنشيط التجارة البينية يحتاج إلى…', opts:[['تسهيل انتقال السلع',1],['رفع الرسوم الجمركية',0],['منع التبادل',0]]},
- {q:'من أهداف التكامل:', opts:[['رفع القدرة التنافسية',1],['تقليل الإنتاج',0],['عزل الأسواق',0]]},
- {q:'من آثار غياب التكامل:', opts:[['زيادة الاستيراد',1],['تحقيق الاكتفاء الذاتي',0],['تنشيط الإنتاج',0]]},
- {q:'زيادة التنسيق الاقتصادي يؤدي إلى…', opts:[['رفع التنمية',1],['ضعف الاقتصاد',0],['تراجع الصناعة',0]]},
- {q:'التنوع الجغرافي في الوطن العربي يؤدي إلى…', opts:[['تكامل الموارد',1],['نقص الإنتاج',0],['غياب التعاون',0]]},
- {q:'من الأمثلة على موارد عربية مكملة:', opts:[['البترول والغاز',1],['ندرة المعادن',0],['قلة الأراضي',0]]},
- {q:'تحسين التعليم يساهم في…', opts:[['تقوية الكوادر',1],['انخفاض النمو',0],['ضعف الإنتاجية',0]]},
- {q:'اتفاقية منطقة التجارة الحرة هدفها…', opts:[['تقليل الرسوم الجمركية',1],['منع انتقال السلع',0],['رفع الضرائب',0]]},
- {q:'المشروعات العربية المشتركة تساعد على…', opts:[['زيادة الإنتاج',1],['تقليل التوظيف',0],['إضعاف الصناعة',0]]}
-];
-
-function shuffle(arr){ for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]] } return arr }
-
-const QUESTIONS = shuffle(BANK.slice()).slice(0,20);
-
-let total = 10*60;
-let timer = setInterval(()=>{
- let m = String(Math.floor(total/60)).padStart(2,'0');
- let s = String(total%60).padStart(2,'0');
- document.getElementById('time').textContent = m+':'+s;
- if(total<=0){ submitExam(); clearInterval(timer); }
- total--;
-},1000);
-
-const examDiv = document.getElementById('exam');
-QUESTIONS.forEach((q,i)=>{
- let box = document.createElement('div'); box.className='options';
- let title = document.createElement('div'); title.textContent = (i+1)+') '+q.q; box.appendChild(title);
- shuffle(q.opts).forEach(op=>{
-   let lab = document.createElement('label');
-   let inp = document.createElement('input'); inp.type='radio'; inp.name='q'+i; inp.value = op[1];
-   lab.appendChild(inp); lab.appendChild(document.createTextNode(' '+op[0]));
-   box.appendChild(lab);
- });
- examDiv.appendChild(box);
-});
-
-function progress(){
-  const totalQ = 20;
-  let answered = 0;
-  for(let i=0;i<totalQ;i++){
-    if(document.querySelector("input[name='q"+i+"']:checked")) answered++;
-  }
-  document.getElementById('answered').textContent = answered;
-  document.getElementById('pct').textContent = Math.round(answered/totalQ*100)+'%';
-  document.getElementById('bar').style.width = (answered/totalQ*100)+'%';
-}
-
-document.getElementById('quiz').addEventListener('input', progress); progress();
-
-function submitExam(){
- let scoreRaw = 0;
- const totalQ = 20; // each correct = 1
- QUESTIONS.forEach((q,i)=>{
-   let sel = document.querySelector("input[name='q"+i+"']:checked");
-   if(sel) scoreRaw += parseInt(sel.value);
- });
- const scaled = Math.round(scoreRaw * 30 / totalQ);
- document.getElementById('result').innerHTML = 'الدرجة: '+scaled+' / 30';
- return scaled;
-}
-
-function sendMail(){
- let scaled = submitExam();
- let name = document.getElementById('student').value || 'طالب بدون اسم';
- let klass = document.getElementById('class').value || '';
- let body = `الطالب: ${name}%0D%0Aالفصل: ${klass}%0D%0Aالنتيجة: ${scaled} / 30`;
- window.location.href = 'mailto:'+TEACHER_EMAIL+'?subject=نتيجة اختبار&body='+body;
-}
-
-document.getElementById('tname').textContent = TEACHER_NAME;
-</script>
+<footer>© الأستاذ/ سامح محمد حسن على — بريد المعلّم: samehteba@gmail.com — صفحة الاختيار</footer>
 </body>
 </html>
